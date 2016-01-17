@@ -39,7 +39,6 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        include: path.join(__dirname, 'src'),
         loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
       },
       {
