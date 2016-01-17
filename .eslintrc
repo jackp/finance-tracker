@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "react/prop-types": [2, { ignore: [ "children" ]}],
+    "no-unused-vars": 1
+  },
+  "env": {
+    "mocha": true,
+  },
+  "globals": {
+    "__DEV__": false,
+    "__PROD__": false,
+  }
+}
