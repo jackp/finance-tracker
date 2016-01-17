@@ -1,33 +1,33 @@
 /**
  * Webpack Configuration - Development (webpack-dev-server)
  */
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Project root
-const SRC_DIR = path.resolve(__dirname, './src');
+var SRC_DIR = path.resolve(__dirname, './src');
 
 // Ports
-const WEBPACK_PORT = process.env.WEBPACK_PORT || 3000;
+var WEBPACK_PORT = process.env.WEBPACK_PORT || 3000;
 
 // Globals to import
-const GLOBALS = {
+var GLOBALS = {
   __DEV__: true,
   __PROD__: false,
 };
 
-export default {
+module.exports = {
   context: SRC_DIR,
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    `webpack-dev-server/client?http://localhost:${WEBPACK_PORT}`,
+    'webpack-dev-server/client?http://localhost:' + WEBPACK_PORT,
     'webpack/hot/only-dev-server',
     './index.js',
   ],
   output: {
     filename: '[name].[hash].js',
-    publicPath: `http://localhost:${WEBPACK_PORT}/`,
+    publicPath: 'http://localhost:' + WEBPACK_PORT + '/',
   },
   module: {
     preLoaders: [

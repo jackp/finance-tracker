@@ -4,8 +4,8 @@
   "description": "Simple finance tracker, showing net income per day/week/month. Example architecture for stand-alone React application",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_PATH=./src webpack-dev-server --hot --config webpack.config.babel.js",
-    "build": "NODE_PATH=./src webpack --config webpack.prod.config.babel.js",
+    "start": "NODE_PATH=./src webpack-dev-server --config webpack.config.dev.js",
+    "build": "NODE_PATH=./src webpack --config webpack.config.prod.js",
     "deploy": "npm run build && gh-pages -d dist"
   },
   "repository": {

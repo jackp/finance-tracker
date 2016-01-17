@@ -1,21 +1,21 @@
 /**
- * Webpack Configuration - Development (webpack-dev-server)
+ * Webpack Configuration - Production
  */
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Project root
-const SRC_DIR = path.resolve(__dirname, './src');
-const DIST_DIR = path.resolve(__dirname, './dist');
+var SRC_DIR = path.resolve(__dirname, './src');
+var DIST_DIR = path.resolve(__dirname, './dist');
 
 // Globals to import
-const GLOBALS = {
+var GLOBALS = {
   __DEV__: false,
   __PROD__: true,
 };
 
-export default {
+module.exports = {
   context: SRC_DIR,
   devtool: false,
   entry: [
