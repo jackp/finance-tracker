@@ -1,3 +1,12 @@
-const greeting = 'Hello world';
+/**
+ * Client entry point
+ */
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-document.body.innerHTML = greeting;
+import App from './components/App';
+
+ReactDOM.render(
+  <App />,
+  document.getElementById('application')
+);
