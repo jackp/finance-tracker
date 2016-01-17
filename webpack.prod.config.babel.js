@@ -24,7 +24,7 @@ export default {
   output: {
     path: DIST_DIR + '/public',
     filename: '[name].[hash].js',
-    publicPath: '/public/',
+    publicPath: 'public',
   },
   module: {
     loaders: [
