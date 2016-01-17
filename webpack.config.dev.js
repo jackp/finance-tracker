@@ -1,3 +1,4 @@
+/* eslint no-var: 0 */
 /**
  * Webpack Configuration - Development (webpack-dev-server)
  */
