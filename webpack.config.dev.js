@@ -1,13 +1,10 @@
 /* eslint no-var: 0 */
+
 /**
  * Webpack Configuration - Development (webpack-dev-server)
  */
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-
-// Ports
-var WEBPACK_PORT = process.env.WEBPACK_PORT || 3000;
 
 // Globals to import
 var GLOBALS = {
@@ -18,13 +15,13 @@ var GLOBALS = {
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-dev-server/client?http://localhost:' + WEBPACK_PORT,
-    'webpack/hot/only-dev-server',
+    'webpack-hot-middleware/client',
     './src/index.js',
   ],
   output: {
-    filename: '[name].[hash].js',
-    publicPath: 'http://localhost:' + WEBPACK_PORT + '/',
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/public/',
   },
   module: {
     preLoaders: [
@@ -52,28 +49,20 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin(GLOBALS),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      inject: 'body',
-    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
   ],
-  devServer: {
-    port: WEBPACK_PORT,
-    contentBase: path.join(__dirname, 'src', 'public'),
-    historyApiFallback: true,
-    stats: {
-      colors: true,
-      timings: true,
-      reasons: true,
-      hash: false,
-      version: false,
-      chunks: false,
-      chunkModules: false,
-      cached: false,
-      cachedAssets: false,
-    },
+  stats: {
+    colors: true,
+    timings: true,
+    reasons: true,
+    hash: false,
+    version: false,
+    chunks: false,
+    chunkModules: false,
+    cached: false,
+    cachedAssets: false,
   },
 };
