@@ -6,10 +6,6 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// Project root
-var SRC_DIR = path.resolve(__dirname, './src');
-var DIST_DIR = path.resolve(__dirname, './dist');
-
 // Globals to import
 var GLOBALS = {
   __DEV__: false,
@@ -17,13 +13,12 @@ var GLOBALS = {
 };
 
 module.exports = {
-  context: SRC_DIR,
   devtool: false,
   entry: [
-    './index.js',
+    './src/index.js',
   ],
   output: {
-    path: DIST_DIR + '/public',
+    path: path.join(__dirname, 'dist/public'),
     filename: '[name].[hash].js',
     publicPath: 'public',
   },
@@ -31,12 +26,12 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        include: SRC_DIR,
+        include: path.join(__dirname, 'src'),
         loaders: ['babel'],
       },
       {
         test: /\.(css|scss)$/,
-        include: SRC_DIR,
+        include: path.join(__dirname, 'src'),
         loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
       },
       {
@@ -57,7 +52,7 @@ module.exports = {
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.DefinePlugin(GLOBALS),
     new HtmlWebpackPlugin({
-      template: SRC_DIR + '/index.html',
+      template: './src/index.html',
       filename: '../index.html',
       inject: 'body',
     }),

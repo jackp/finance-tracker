@@ -6,9 +6,6 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// Project root
-var SRC_DIR = path.resolve(__dirname, './src');
-
 // Ports
 var WEBPACK_PORT = process.env.WEBPACK_PORT || 3000;
 
@@ -19,12 +16,11 @@ var GLOBALS = {
 };
 
 module.exports = {
-  context: SRC_DIR,
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:' + WEBPACK_PORT,
     'webpack/hot/only-dev-server',
-    './index.js',
+    './src/index.js',
   ],
   output: {
     filename: '[name].[hash].js',
@@ -34,19 +30,19 @@ module.exports = {
     preLoaders: [
       {
         test: /\.js$/,
-        include: SRC_DIR,
+        include: path.join(__dirname, 'src'),
         loader: 'eslint',
       },
     ],
     loaders: [
       {
         test: /\.js$/,
-        include: SRC_DIR,
+        include: path.join(__dirname, 'src'),
         loaders: ['react-hot', 'babel'],
       },
       {
         test: /\.(css|scss)$/,
-        include: SRC_DIR,
+        include: path.join(__dirname, 'src'),
         loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
       },
       {
@@ -60,13 +56,13 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin(GLOBALS),
     new HtmlWebpackPlugin({
-      template: SRC_DIR + '/index.html',
+      template: './src/index.html',
       inject: 'body',
     }),
   ],
   devServer: {
     port: WEBPACK_PORT,
-    contentBase: SRC_DIR + '/public/',
+    contentBase: path.join(__dirname, 'src', 'public'),
     historyApiFallback: true,
     stats: {
       colors: true,
