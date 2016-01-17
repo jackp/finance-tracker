@@ -5,23 +5,26 @@
  */
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Globals to import
 var GLOBALS = {
   __DEV__: false,
   __PROD__: true,
+  'process.env': {
+    NODE_ENV: JSON.stringify('production'),
+  },
 };
 
 module.exports = {
-  devtool: false,
+  devtool: 'source-map',
   entry: [
     './src/index.js',
   ],
   output: {
     path: path.join(__dirname, 'dist/public'),
-    filename: '[name].[hash].js',
-    publicPath: 'public',
+    filename: 'bundle.js',
+    publicPath: 'public/',
   },
   module: {
     loaders: [
@@ -42,20 +45,16 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin(GLOBALS),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,
-        warnings: true,
+        warnings: false,
       },
     }),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.DefinePlugin(GLOBALS),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: '../index.html',
-      inject: 'body',
-    }),
+    new CopyWebpackPlugin([
+      { from: 'src/index.html', to: '../index.html' },
+    ]),
   ],
 };
