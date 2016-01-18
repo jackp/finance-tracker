@@ -5,7 +5,8 @@
  */
 var path = require('path');
 var webpack = require('webpack');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Globals to import
 var GLOBALS = {
@@ -19,11 +20,11 @@ var GLOBALS = {
 module.exports = {
   devtool: 'source-map',
   entry: [
-    './src/index.js',
+    './src/client.js',
   ],
   output: {
     path: path.join(__dirname, 'dist/public'),
-    filename: 'bundle.js',
+    filename: '[name].[hash].js',
     publicPath: 'public/',
   },
   module: {
@@ -35,8 +36,7 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        include: path.join(__dirname, 'src'),
-        loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+        loader: ExtractTextPlugin.extract('style', 'css', 'sass'),
       },
       {
         test: /\.(gif|png|jpg|svg|eot|otf|woff2|ttf|woff)(\?\S*)?$/,
@@ -53,8 +53,11 @@ module.exports = {
         warnings: false,
       },
     }),
-    new CopyWebpackPlugin([
-      { from: 'src/index.html', to: '../index.html' },
-    ]),
+    new ExtractTextPlugin('main.css'),
+    new HtmlWebpackPlugin({
+      template: './src/index.prod.html',
+      filename: '../index.html',
+      inject: 'body',
+    }),
   ],
 };
