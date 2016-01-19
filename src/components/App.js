@@ -5,10 +5,21 @@
 
 import React from 'react';
 
-import 'semantic-ui-css/semantic.css';
+import EntryInput from './EntryInput';
+import EntryList from './EntryList';
+import Total from './Total';
+
+import '../styles/main.scss';
 
 const App = () => (
-  <h1>Hello World</h1>
+  <div className="ui one column centered grid">
+    <h1 className="centered row">Finance Tracker</h1>
+    <EntryInput />
+    <div className="centered row">
+      <EntryList />
+    </div>
+    <Total />
+  </div>
 );
 
 export default App;
