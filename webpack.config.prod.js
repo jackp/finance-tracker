@@ -36,7 +36,7 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        loader: ExtractTextPlugin.extract('style', 'css', 'sass'),
+        loader: ExtractTextPlugin.extract('css!sass'),
       },
       {
         test: /\.(gif|png|jpg|svg|eot|otf|woff2|ttf|woff)(\?\S*)?$/,
